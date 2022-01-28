@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang='{{ LANGUAGE_CODE }}'>
+
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{% endblock %}</title>
+  <meta name="author" content="">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+
+
+
+<body>
+{{current_date}}
+<div class="container">
+
+
+  <div class="row">
+    <div class="col-12">
+      <div style="background-color:blue; color:white; padding:25px;">
+        <h1>
+          {% block head %}
+          {% endblock %}
+        </h1>
+<p> 
+{% if user.is_authenticated %}
+User {{user.username}} is logged in! <a href="{% url 'logout' %}"> Logout </a>
+{% else %}
+<a href="{%url 'signup' %}"> Registrieren</a> oder <a href="{% url 'login' %}"> Einloggen</a>
+{% endif %}
+</p>
+          </div>
+
+        {% include "snippets/messages.html" %}
+
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+
+</div>
+</body>
+
+</html>

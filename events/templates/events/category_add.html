@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{%load crispy_forms_tags %}
+{% block title %}
+Neue Kategorie hinzufügen
+{% endblock %}
+
+{% block head %}
+Neue Kategorie hinzufügen
+{% endblock %}
+
+{% block content %}
+<form method="POST">
+{% csrf_token %}
+{{form|crispy}}
+<input type="submit" value="Formular absenden"/>
+</form>
+
+    
+{% endblock %}

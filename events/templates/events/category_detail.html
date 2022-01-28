@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Kategorie-Detailseite
+{% endblock %}
+
+{% block head %}
+Detailseite der Kategorie {{category.name}}
+{% endblock %}
+
+{% block content %}
+
+<ul>
+    {% for name, value in category.get_fields %}
+      {% if value %}
+        <li>{{ name }}: {{ value }}</li>
+      {% endif %}
+    {% endfor %}
+</ul>
+{% if user.is_authenticated %}
+<p>
+<a href="{% url 'events:event_create' category.pk %}"> neues Event in der Kategorie {{category.name}} anlegen </a>
+</p>
+{% endif %}
+
+{% endblock %}

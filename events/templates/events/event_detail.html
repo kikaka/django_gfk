@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load tz%}
+{% block title %}
+Detailseite des Events {{object.name}}
+{% endblock %}
+
+{% block head %}
+Detailseite des Events {{object.name}}
+{% endblock %}
+
+{% block content %}
+    
+<ul class="list-group">
+<h1> {{object.name}}  </h1>
+<p> {{object.sub_title|lower}}</p>
+<P>Findet statt am: {{object.date}} </p>
+    {% localtime off %}
+    <P> Findet statt am: {{object.date}}  (UTC) </p>
+    {% endlocaltime %}
+</ul>
+
+{% comment %}
+{% if user.is_authenticated and user == object.author %}
+{% endcomment %}
+
+<p>
+<a href="{% url 'events:event_update' object.id %}"> Event editieren</a><br>
+<a href="{% url 'events:event_delete' object.id %}"> Event löschen</a>
+</p>
+{% comment %}
+{% endif %}
+{% endcomment %}
+
+{% if object.related_events.exists %}
+<h3> Ähnliche Veranstaltungen  </h3>
+
+
+{% for rel_event in object.related_events %}
+<a href="{{rel_event.get_absolute_url}}">
+<li class="list-group-item list-group-item-info">
+{{rel_event.name}}
+</li>
+</a>
+{% endfor%}
+
+{% endif %}
+
+{% include "../snippets/paginator.html" %}
+
+{% endblock %}
